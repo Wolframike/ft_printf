@@ -6,7 +6,7 @@
 /*   By: misargsy <misargsy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 03:33:09 by misargsy          #+#    #+#             */
-/*   Updated: 2023/09/28 16:24:59 by misargsy         ###   ########.fr       */
+/*   Updated: 2023/11/19 22:10:26 by misargsy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,5 @@ void	ft_putstr_fd(char *s, int fd)
 {
 	if (s == NULL)
 		return ;
-	while (*s != '\0')
-		write(fd, s++, 1);
+	write(fd, s, ft_strlen(s));
 }

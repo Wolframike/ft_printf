@@ -6,7 +6,7 @@
 /*   By: misargsy <misargsy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 03:14:12 by misargsy          #+#    #+#             */
-/*   Updated: 2023/09/21 18:08:34 by misargsy         ###   ########.fr       */
+/*   Updated: 2023/11/19 22:15:43 by misargsy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,7 @@ int	ft_atoi(const char *str)
 
 	val = 0;
 	sign = 1;
-	while (*str == '\t' || *str == '\n' || *str == '\v'
-		|| *str == '\f' || *str == '\r' || *str == ' ')
+	while (ft_isspace(*str) == 1)
 		str++;
 	if (*str == '-' || *str == '+')
 	{

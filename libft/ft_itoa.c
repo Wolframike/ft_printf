@@ -6,13 +6,13 @@
 /*   By: misargsy <misargsy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 02:32:19 by misargsy          #+#    #+#             */
-/*   Updated: 2023/09/21 19:45:38 by misargsy         ###   ########.fr       */
+/*   Updated: 2023/11/19 22:20:20 by misargsy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	dig(int n)
+static int	numlen(int n)
 {
 	int	d;
 
@@ -37,7 +37,7 @@ char	*ft_itoa(int n)
 	char	*str;
 	int		d;
 
-	d = dig(n);
+	d = numlen(n);
 	str = (char *)malloc(sizeof(char) * (d + 1));
 	if (str == NULL)
 		return (NULL);

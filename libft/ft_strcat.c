@@ -1,31 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstsize.c                                       :+:      :+:    :+:   */
+/*   ft_strcat.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: misargsy <misargsy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/21 07:27:11 by misargsy          #+#    #+#             */
-/*   Updated: 2023/09/22 22:29:12 by misargsy         ###   ########.fr       */
+/*   Created: 2023/10/12 01:15:59 by misargsy          #+#    #+#             */
+/*   Updated: 2023/10/12 01:17:42 by misargsy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <limits.h>
 
-int	ft_lstsize(t_list *lst)
+char	*ft_strcat(char *dest, const char *src)
 {
-	size_t	l;
+	size_t	i;
 
-	if (lst == NULL)
-		return (0);
-	l = 1;
-	while (lst -> next != NULL)
+	i = 0;
+	while (dest[i] != '\0')
 	{
-		lst = lst -> next;
-		l++;
-		if (l == INT_MAX)
-			return (-1);
+		i++;
 	}
-	return ((int)l);
+	while (*src != '\0')
+	{
+		dest[i] = *src;
+		i++;
+		src++;
+	}
+	dest[i] = '\0';
+	return (dest);
 }

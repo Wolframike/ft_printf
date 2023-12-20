@@ -5,83 +5,70 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: misargsy <misargsy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/22 23:01:23 by misargsy          #+#    #+#             */
-/*   Updated: 2023/10/02 18:19:18 by misargsy         ###   ########.fr       */
+/*   Created: 2023/12/15 17:33:05 by misargsy          #+#    #+#             */
+/*   Updated: 2023/12/18 06:31:48 by misargsy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
-# include "../libft/libft.h"
+# include "libft.h"
 # include <stdarg.h>
 # include <limits.h>
 # include <stdbool.h>
 # include <unistd.h>
+# include <stdint.h>
 
-# define HEX_NUM_LC "0123456789abcdef"
-# define HEX_NUM_UC "0123456789ABCDEF"
-# define DEC_NUM "0123456789"
-# define FLAGS "-0.# +"
-# define CONVS "cspdiuxX%"
+# define HEX_LC "0123456789abcdefx"
+# define HEX_UC "0123456789ABCDEFX"
+# define DECIMAL "0123456789"
+# define FLAGS "-0# +"
+# define CONVERSIONS "cspdiuxX%"
+# define NULL_LITERAL "(null)"
+# define HEX_PREFIX_LEN 2
+
+# define F_PLUS		0b000001
+# define F_MINUS	0b000010
+# define F_ZERO		0b000100
+# define F_SPACE	0b001000
+# define F_PREC		0b010000
+# define F_HASH		0b100000
 
 typedef struct s_format
 {
-	int		f_plus;
-	int		f_minus;
-	int		f_zero;
-	int		f_space;
-	int		f_dot;
-	int		f_hash;
+	int		fd;
+	int		flags;
 	size_t	prec;
 	size_t	width;
 }	t_format;
 
-int				ft_printf(const char *format, ...);
+// ft_printf.c
+int		ft_printf(const char *format, ...);
 
-ssize_t			ftpf_main(char *format, va_list args);
-ssize_t			ftpf_printer(char **format, va_list args);
-ssize_t			ftpf_phelper(char c, t_format *fstruct, va_list args);
+// printf_get_format.c
+void	get_format(const char **format, const int fd, t_format *data);
 
-t_format		*ftpf_fparse(char *format);
+// printf_*.c
+int		print_char(const t_format format, const char c);
+int		print_string(const t_format format, const char *str);
+int		print_pointer(t_format format, const void *ptr);
+int		print_int(const t_format format, const int num);
+int		print_uint(const t_format format, const unsigned int num);
+int		print_hex(
+			t_format format,
+			const unsigned int num,
+			const char base[18]);
+int		print_percent(const t_format format);
 
-t_format		*fstruct_init(void);
-size_t			get_width(char *format);
-size_t			get_prec(char *format, t_format *fstruct);
-bool			get_zero(char *format);
-
-bool			is_flag(const char c);
-bool			is_conv(const char c);
-
-bool			ftpf_sign_first(int n, t_format *fstruct);
-bool			ftpf_hash_first(unsigned long n, t_format *fstruct);
-size_t			ftpf_fillerlen(long long n, int base, t_format *fstruct);
-
-int				ftpf_print_char(t_format *fstruct, char c);
-int				ftpf_print_str(t_format *fstruct, char *str);
-void			ft_putnbr_phex(uintptr_t n, char *base,
-					bool prefix, t_format *fstruct);
-int				ftpf_print_ptr(t_format *fstruct, void *ptr);
-int				ftpf_print_percent(t_format *fstruct);
-
-int				ftpf_print_int(t_format *fstruct, int n);
-int				ftpf_print_uint(t_format *fstruct, unsigned int n);
-size_t			ftpf_numlen(long long n, int base, t_format *fstruct);
-int				ftpf_print_sign(int n, t_format *fstruct);
-size_t			ftpf_align(size_t total, size_t width);
-
-int				ftpf_print_hex(t_format *fstruct,
-					unsigned int n, const char *base);
-int				ftpf_print_hash(unsigned long n, bool upper, t_format *fstruct);
-
-int				numcatch(const char *str);
-unsigned int	ft_atoui(const char *str);
-void			ftpf_ps_cap(char *str, int fd, t_format *fstruct);
-void			ft_putunbr_fd(uintmax_t n, const char *base, int fd);
-size_t			ftpf_putsign_fd(int n, int fd);
-size_t			ft_numlen(intmax_t n, int base);
-size_t			ft_ulnumlen(uintmax_t n, int base);
-void			ft_putabsnbr_fd(intmax_t n, int fd);
-size_t			ft_max(size_t a, size_t b);
+// printf_utils.c
+bool	has_flag(const int flag, const int flagmacro);
+void	putnbr_unsigned(
+			const uint64_t num,
+			const unsigned int base,
+			const char *basestr,
+			const int fd);
+size_t	intlen(int64_t num, const int base);
+size_t	uintlen(uint64_t num, const int base);
 
 #endif

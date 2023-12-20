@@ -6,7 +6,7 @@
 /*   By: misargsy <misargsy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 01:05:35 by misargsy          #+#    #+#             */
-/*   Updated: 2023/09/20 03:35:03 by misargsy         ###   ########.fr       */
+/*   Updated: 2023/11/19 22:19:25 by misargsy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,7 @@
 
 int	ft_isalnum(int c)
 {
-	return (ft_isalpha(c) || ft_isdigit(c));
+	if (ft_isalpha(c) != 0 || ft_isdigit(c) != 0)
+		return (1);
+	return (0);
 }
